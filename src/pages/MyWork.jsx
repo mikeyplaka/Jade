@@ -155,12 +155,36 @@ export default function MyWork() {
         <div>
           <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-3">Completed ({completedTasks.length})</h2>
           <Card className="divide-y">
-            {completedTasks.slice(0, 10).map(task => (
-              <div key={task.id} className="flex items-center gap-3 p-4 opacity-60">
-                <CheckCircle2 className="w-5 h-5 text-emerald-500" />
-                <p className="text-sm line-through">{task.title}</p>
-              </div>
-            ))}
+            {completedTasks.slice(0, 10).map(task => {
+              const project = getProject(task.project_id);
+              const afterPhotos = task.photos_after || [];
+              return (
+                <div key={task.id} className="p-4">
+                  <div className="flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-emerald-500 mt-0.5 shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium line-through text-muted-foreground">{task.title}</p>
+                      {project && <p className="text-xs text-primary mt-0.5">{project.name}</p>}
+                      {afterPhotos.length > 0 && (
+                        <div className="flex flex-wrap gap-2 mt-2">
+                          {afterPhotos.map((url, i) => (
+                            <img key={i} src={url} alt="" className="w-16 h-16 rounded object-cover" />
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-8 w-8 shrink-0"
+                      onClick={() => { setSelectedTask(task); setNoteText(task.notes || ''); }}
+                    >
+                      <Camera className="w-4 h-4 text-muted-foreground" />
+                    </Button>
+                  </div>
+                </div>
+              );
+            })}
           </Card>
         </div>
       )}
