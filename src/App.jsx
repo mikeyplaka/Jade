@@ -44,7 +44,19 @@ const AuthenticatedApp = () => {
   // Render the main app
   return (
     <Routes>
-      {/* Add your page Route elements here */}
+      <Route element={<Layout />}>
+        <Route path="/" element={<Navigate to="/Dashboard" replace />} />
+        <Route path="/Dashboard" element={<Dashboard />} />
+        <Route path="/MyWork" element={<MyWork />} />
+        <Route path="/Projects" element={<Projects />} />
+        <Route path="/ProjectDetail" element={<ProjectDetail />} />
+        <Route path="/Tasks" element={<Tasks />} />
+        <Route path="/Employees" element={<Employees />} />
+        <Route path="/Schedule" element={<Schedule />} />
+        <Route path="/MapView" element={<MapView />} />
+        <Route path="/TimeTracking" element={<TimeTracking />} />
+        <Route path="/Notifications" element={<Notifications />} />
+      </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
