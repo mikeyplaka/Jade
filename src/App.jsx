@@ -5,7 +5,18 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
-// Add page imports here
+import { Navigate } from 'react-router-dom';
+import Layout from '@/components/Layout';
+import Dashboard from '@/pages/Dashboard';
+import MyWork from '@/pages/MyWork';
+import Projects from '@/pages/Projects';
+import ProjectDetail from '@/pages/ProjectDetail';
+import Tasks from '@/pages/Tasks';
+import Employees from '@/pages/Employees';
+import Schedule from '@/pages/Schedule';
+import MapView from '@/pages/MapView';
+import TimeTracking from '@/pages/TimeTracking';
+import Notifications from '@/pages/Notifications';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
