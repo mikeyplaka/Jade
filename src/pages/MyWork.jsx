@@ -139,7 +139,10 @@ export default function MyWork() {
                       )}
                     </div>
                     <div className="flex gap-1">
-                      <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => { setSelectedTask(task); setNoteText(task.notes || ''); }}>
+                      <Button variant="ghost" size="icon" className="h-8 w-8" title="Add notes & photos" onClick={() => { setSelectedTask(task); setNoteText(task.notes || ''); }}>
+                        <Camera className="w-4 h-4" />
+                      </Button>
+                      <Button variant="ghost" size="icon" className="h-8 w-8" title="Add notes" onClick={() => { setSelectedTask(task); setNoteText(task.notes || ''); }}>
                         <MessageSquare className="w-4 h-4" />
                       </Button>
                     </div>
