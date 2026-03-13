@@ -7,6 +7,7 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import Layout from '@/components/Layout';
 import RoleRedirect from '@/components/RoleRedirect';
+import ThemeProvider from '@/components/ThemeProvider';
 import Dashboard from '@/pages/Dashboard';
 import MyWork from '@/pages/MyWork';
 import Projects from '@/pages/Projects';
