@@ -60,7 +60,15 @@ export default function MyWork() {
   const pendingTasks = tasks.filter(t => t.status !== 'completed');
   const completedTasks = tasks.filter(t => t.status === 'completed');
 
+  const handleRefresh = async () => {
+    await Promise.all([
+      queryClient.invalidateQueries({ queryKey: ['myProjects'] }),
+      queryClient.invalidateQueries({ queryKey: ['myTasks'] }),
+    ]);
+  };
+
   return (
+    <PullToRefresh onRefresh={handleRefresh}>
     <div className="p-4 lg:p-8 max-w-3xl mx-auto space-y-6">
       <div>
         <h1 className="text-2xl font-bold">My Work</h1>
