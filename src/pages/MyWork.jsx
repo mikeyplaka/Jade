@@ -256,5 +256,6 @@ export default function MyWork() {
         </DialogContent>
       </Dialog>
     </div>
+    </PullToRefresh>
   );
 }
