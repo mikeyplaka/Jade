@@ -84,5 +84,12 @@
   }
   body {
     @apply bg-background text-foreground font-inter;
+    overscroll-behavior-y: none;
+  }
+  button, [role="tab"], [role="button"] {
+    @apply select-none;
+  }
+  svg {
+    @apply select-none;
   }
 }
