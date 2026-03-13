@@ -194,30 +194,54 @@ export default function MyWork() {
 
       {/* Task Detail Dialog */}
       <Dialog open={!!selectedTask} onOpenChange={() => setSelectedTask(null)}>
-        <DialogContent>
-          <DialogHeader><DialogTitle>{selectedTask?.title}</DialogTitle></DialogHeader>
+        <DialogContent className="max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              {selectedTask?.status === 'completed'
+                ? <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                : <Circle className="w-4 h-4 text-muted-foreground" />}
+              {selectedTask?.title}
+            </DialogTitle>
+          </DialogHeader>
           <div className="space-y-4">
             <div>
-              <p className="text-sm font-medium mb-2">Add Notes / Report Issues</p>
+              <p className="text-sm font-medium mb-2">Notes</p>
               <Textarea value={noteText} onChange={e => setNoteText(e.target.value)} rows={3} placeholder="Describe any notes or issues..." />
             </div>
             {selectedTask && (
-              <PhotoUploader
-                label="Before & After Photos"
-                photos={[...(selectedTask.photos_before || []), ...(selectedTask.photos_after || [])]}
-                onPhotosChange={(photos) => {
-                  updateTaskMutation.mutate({
-                    id: selectedTask.id,
-                    data: { photos_after: photos }
-                  });
-                }}
-              />
+              <>
+                <PhotoUploader
+                  label="Before Photos"
+                  photos={selectedTask.photos_before || []}
+                  onPhotosChange={(photos) =>
+                    updateTaskMutation.mutate({ id: selectedTask.id, data: { photos_before: photos } })
+                  }
+                />
+                <PhotoUploader
+                  label="After Photos (Completed Work)"
+                  photos={selectedTask.photos_after || []}
+                  onPhotosChange={(photos) =>
+                    updateTaskMutation.mutate({ id: selectedTask.id, data: { photos_after: photos } })
+                  }
+                />
+              </>
             )}
-            <div className="flex justify-end gap-3">
-              <Button variant="outline" onClick={() => setSelectedTask(null)}>Cancel</Button>
-              <Button onClick={() => {
-                updateTaskMutation.mutate({ id: selectedTask.id, data: { notes: noteText } });
-              }}>Save Notes</Button>
+            <div className="flex justify-between gap-3 pt-1">
+              {selectedTask?.status !== 'completed' && (
+                <Button
+                  variant="outline"
+                  className="border-emerald-500 text-emerald-600 hover:bg-emerald-50"
+                  onClick={() => updateTaskMutation.mutate({ id: selectedTask.id, data: { status: 'completed', notes: noteText } })}
+                >
+                  <CheckCircle2 className="w-4 h-4 mr-1.5" /> Mark Complete
+                </Button>
+              )}
+              <div className="flex gap-2 ml-auto">
+                <Button variant="outline" onClick={() => setSelectedTask(null)}>Cancel</Button>
+                <Button onClick={() => updateTaskMutation.mutate({ id: selectedTask.id, data: { notes: noteText } })}>
+                  Save Notes
+                </Button>
+              </div>
             </div>
           </div>
         </DialogContent>
