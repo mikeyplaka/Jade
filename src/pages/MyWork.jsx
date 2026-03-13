@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import { format } from 'date-fns';
 import PhotoUploader from '@/components/projects/PhotoUploader';
+import PullToRefresh from '@/components/PullToRefresh';
 
 const statusColors = {
   pending: 'bg-amber-100 text-amber-700',
