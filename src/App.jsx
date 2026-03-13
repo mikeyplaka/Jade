@@ -18,6 +18,7 @@ import Schedule from '@/pages/Schedule';
 import MapView from '@/pages/MapView';
 import TimeTracking from '@/pages/TimeTracking';
 import Notifications from '@/pages/Notifications';
+import EmployeeTracking from '@/pages/EmployeeTracking';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -57,6 +58,7 @@ const AuthenticatedApp = () => {
         <Route path="/MapView" element={<MapView />} />
         <Route path="/TimeTracking" element={<TimeTracking />} />
         <Route path="/Notifications" element={<Notifications />} />
+        <Route path="/EmployeeTracking" element={<EmployeeTracking />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>

@@ -10,6 +10,7 @@ import {
   MapPin, CalendarDays, Package, CheckCircle2, Circle, Clock,
   Camera, MessageSquare, HardHat
 } from 'lucide-react';
+import LocationCheckIn from '@/components/location/LocationCheckIn';
 import { format } from 'date-fns';
 import PhotoUploader from '@/components/projects/PhotoUploader';
 
@@ -72,6 +73,9 @@ export default function MyWork() {
         <h1 className="text-2xl font-bold">My Work</h1>
         <p className="text-sm text-muted-foreground">{pendingTasks.length} active tasks, {projects.length} projects</p>
       </div>
+
+      {/* Location Check-In */}
+      {user && <LocationCheckIn user={user} projects={projects} />}
 
       {/* Active Jobs */}
       <div>
