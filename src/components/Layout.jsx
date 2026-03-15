@@ -172,6 +172,7 @@ export default function Layout() {
               alt="Jade Contracting Corporation"
               className="h-8 w-8 object-cover rounded-full"
             />
+            <span className="font-bold text-sm">Jade Contracting Corporation</span>
           </div>
           <Link to="/Notifications" className="relative">
             <Bell className="w-5 h-5 text-muted-foreground" />
