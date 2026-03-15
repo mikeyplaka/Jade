@@ -7,7 +7,6 @@ import {
   Map, Bell, Clock, Menu, LogOut, ChevronRight, HardHat, Trash2, Navigation, MessageSquare,
   Wrench, Shield
 } from 'lucide-react';
-import { useAuth } from '@/lib/AuthContext';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
