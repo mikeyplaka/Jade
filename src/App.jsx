@@ -63,7 +63,9 @@ const AuthenticatedApp = () => {
     <Routes>
       <Route path="/Login" element={<pagesConfig.Pages.Login />} />
       <Route element={<Layout />}>
-        <Route path="/" element={<Navigate to={`/${pagesConfig.mainPage}`} replace />} />
+        <Route path="/" element={
+          <Navigate to={userRole === 'admin' || userRole === 'project_manager' ? '/Dashboard' : '/MyWork'} replace />
+        } />
         {Object.entries(pagesConfig.Pages).map(([name, Component]) => {
           if (name === 'Login') return null;
           return (
