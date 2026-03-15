@@ -8,13 +8,25 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
-import { Search, Users, UserPlus, Mail, Phone, Wrench } from 'lucide-react';
+import { Search, Users, UserPlus, Mail, Phone, Wrench, Shield } from 'lucide-react';
 import { toast } from 'sonner';
 
 const roleColors = {
   admin: 'bg-violet-100 text-violet-700',
   project_manager: 'bg-blue-100 text-blue-700',
+  supervisor: 'bg-indigo-100 text-indigo-700',
+  foreman: 'bg-amber-100 text-amber-700',
   employee: 'bg-slate-100 text-slate-600',
+  subcontractor: 'bg-orange-100 text-orange-700',
+};
+
+const roleLabels = {
+  admin: 'Admin',
+  project_manager: 'Project Manager',
+  supervisor: 'Supervisor',
+  foreman: 'Foreman',
+  employee: 'Employee',
+  subcontractor: 'Subcontractor',
 };
 
 export default function Employees() {
@@ -36,7 +48,7 @@ export default function Employees() {
 
   const handleInvite = async () => {
     await base44.users.inviteUser(inviteEmail, inviteRole === 'admin' ? 'admin' : 'user');
-    if (inviteRole !== 'admin' && inviteRole !== 'user') {
+    if (inviteRole !== 'admin') {
       const newUsers = await base44.entities.User.list();
       const newUser = newUsers.find(u => u.email === inviteEmail);
       if (newUser) {
@@ -47,6 +59,12 @@ export default function Employees() {
     setShowInvite(false);
     setInviteEmail('');
     queryClient.invalidateQueries({ queryKey: ['users'] });
+  };
+
+  const handleRoleChange = async (userId, newRole) => {
+    await base44.entities.User.update(userId, { role: newRole });
+    queryClient.invalidateQueries({ queryKey: ['users'] });
+    toast.success('Role updated');
   };
 
   const getProjectCount = (email) => projects.filter(p => p.assigned_employees?.includes(email)).length;
@@ -96,9 +114,22 @@ export default function Employees() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-semibold text-sm truncate">{user.full_name || 'Unknown'}</p>
-                  <Badge className={`text-xs mt-1 ${roleColors[user.role] || 'bg-slate-100 text-slate-600'}`}>
-                    {user.role?.replace('_', ' ') || 'employee'}
-                  </Badge>
+                  <Select value={user.role || 'employee'} onValueChange={(v) => handleRoleChange(user.id, v)}>
+                    <SelectTrigger className="h-6 text-xs border-0 p-0 gap-1 w-auto focus:ring-0 shadow-none">
+                      <Badge className={`text-xs cursor-pointer ${roleColors[user.role] || 'bg-slate-100 text-slate-600'}`}>
+                        <Shield className="w-2.5 h-2.5 mr-1" />
+                        {roleLabels[user.role] || user.role?.replace('_', ' ') || 'Employee'}
+                      </Badge>
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="admin">Admin</SelectItem>
+                      <SelectItem value="project_manager">Project Manager</SelectItem>
+                      <SelectItem value="supervisor">Supervisor</SelectItem>
+                      <SelectItem value="foreman">Foreman</SelectItem>
+                      <SelectItem value="employee">Employee</SelectItem>
+                      <SelectItem value="subcontractor">Subcontractor</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
               </div>
               <div className="mt-3 space-y-1.5">
@@ -137,8 +168,11 @@ export default function Employees() {
               <Select value={inviteRole} onValueChange={setInviteRole}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="employee">Employee / Worker</SelectItem>
+                  <SelectItem value="employee">Employee</SelectItem>
+                  <SelectItem value="foreman">Foreman</SelectItem>
+                  <SelectItem value="supervisor">Supervisor</SelectItem>
                   <SelectItem value="project_manager">Project Manager</SelectItem>
+                  <SelectItem value="subcontractor">Subcontractor</SelectItem>
                   <SelectItem value="admin">Admin</SelectItem>
                 </SelectContent>
               </Select>
