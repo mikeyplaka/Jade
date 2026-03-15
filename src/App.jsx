@@ -20,6 +20,8 @@ import TimeTracking from '@/pages/TimeTracking';
 import Notifications from '@/pages/Notifications';
 import EmployeeTracking from '@/pages/EmployeeTracking';
 import GroupChat from '@/pages/GroupChat';
+import Equipment from '@/pages/Equipment';
+import Permissions from '@/pages/Permissions';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -61,6 +63,8 @@ const AuthenticatedApp = () => {
         <Route path="/Notifications" element={<Notifications />} />
         <Route path="/EmployeeTracking" element={<EmployeeTracking />} />
         <Route path="/GroupChat" element={<GroupChat />} />
+        <Route path="/Equipment" element={<Equipment />} />
+        <Route path="/Permissions" element={<Permissions />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>
