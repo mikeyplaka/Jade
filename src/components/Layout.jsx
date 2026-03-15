@@ -170,7 +170,7 @@ export default function Layout() {
             <img
               src="https://media.base44.com/images/public/69b4628a13ddedafaf68ba9d/b2982269c_PHOTO-2026-03-13-15-17-32.jpg"
               alt="Jade Contracting Corporation"
-              className="h-8 w-auto object-contain"
+              className="h-8 w-8 object-cover rounded-full"
             />
           </div>
           <Link to="/Notifications" className="relative">
