@@ -38,11 +38,9 @@ export default function Layout() {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const { user, logout } = useAuth();
   const { data: userData } = useQuery({
     queryKey: ['currentUser'],
     queryFn: () => base44.auth.me(),
-    initialData: user
   });
 
   const { data: unreadNotifs = [] } = useQuery({
