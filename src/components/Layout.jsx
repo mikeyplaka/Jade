@@ -101,10 +101,10 @@ export default function Layout() {
       >
         <div className="flex items-center gap-3 px-2">
           <div className="w-8 h-8 rounded-full bg-sidebar-accent flex items-center justify-center text-xs font-bold text-sidebar-foreground">
-            {user?.full_name?.[0] || 'U'}
+            {userData?.full_name?.[0] || 'U'}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-medium text-sidebar-foreground truncate">{user?.full_name || 'User'}</p>
+            <p className="text-xs font-medium text-sidebar-foreground truncate">{userData?.full_name || 'User'}</p>
             <p className="text-xs text-sidebar-foreground/50 capitalize">{role.replace('_', ' ')}</p>
           </div>
           <Button

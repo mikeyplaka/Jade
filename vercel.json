@@ -1,8 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/api/(.*)",
-      "destination": "https://api.base44.com/apps/69b4628a13ddedafaf68ba9d/:1"
+      "source": "/api/:path*",
+      "destination": "https://api.base44.com/apps/69b4628a13ddedafaf68ba9d/:path*"
     },
     {
       "source": "/(.*)",
