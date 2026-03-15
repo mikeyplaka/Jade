@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, HardHat, ListChecks, Bell } from 'lucide-react';
+import { LayoutDashboard, HardHat, ListChecks, Bell, MessageSquare } from 'lucide-react';
 
 const tabs = [
   { path: '/Dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { path: '/MyWork', label: 'My Work', icon: HardHat },
   { path: '/Tasks', label: 'Tasks', icon: ListChecks },
+  { path: '/GroupChat', label: 'Chat', icon: MessageSquare },
   { path: '/Notifications', label: 'Alerts', icon: Bell },
 ];
 

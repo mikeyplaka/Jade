@@ -19,6 +19,7 @@ import MapView from '@/pages/MapView';
 import TimeTracking from '@/pages/TimeTracking';
 import Notifications from '@/pages/Notifications';
 import EmployeeTracking from '@/pages/EmployeeTracking';
+import GroupChat from '@/pages/GroupChat';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -59,6 +60,7 @@ const AuthenticatedApp = () => {
         <Route path="/TimeTracking" element={<TimeTracking />} />
         <Route path="/Notifications" element={<Notifications />} />
         <Route path="/EmployeeTracking" element={<EmployeeTracking />} />
+        <Route path="/GroupChat" element={<GroupChat />} />
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>

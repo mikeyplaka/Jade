@@ -17,6 +17,7 @@ import {
 import { format } from 'date-fns';
 import PhotoUploader from '@/components/projects/PhotoUploader';
 import ProjectForm from '@/components/projects/ProjectForm';
+import MaterialRequests from '@/components/projects/MaterialRequests';
 
 const statusColors = {
   pending: 'bg-amber-100 text-amber-700',
@@ -49,6 +50,11 @@ export default function ProjectDetail() {
   const { data: users = [] } = useQuery({
     queryKey: ['users'],
     queryFn: () => base44.entities.User.list(),
+  });
+
+  const { data: currentUser } = useQuery({
+    queryKey: ['currentUser'],
+    queryFn: () => base44.auth.me(),
   });
 
   const updateProjectMutation = useMutation({
@@ -211,6 +217,15 @@ export default function ProjectDetail() {
             </div>
           ))}
         </div>
+      </Card>
+
+      {/* Material Requests */}
+      <Card className="p-5">
+        <MaterialRequests
+          projectId={projectId}
+          user={currentUser}
+          isAdmin={currentUser?.role === 'admin' || currentUser?.role === 'project_manager'}
+        />
       </Card>
 
       {/* Photos */}
