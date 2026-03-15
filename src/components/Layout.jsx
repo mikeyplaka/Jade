@@ -101,7 +101,7 @@ export default function Layout() {
             {userData?.full_name?.[0] || 'U'}
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-medium text-sidebar-foreground truncate">{user?.full_name || 'User'}</p>
+            <p className="text-xs font-medium text-sidebar-foreground truncate">{userData?.full_name || 'User'}</p>
             <p className="text-xs text-sidebar-foreground/50 capitalize">{role.replace('_', ' ')}</p>
           </div>
           <Button
