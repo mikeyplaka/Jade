@@ -10,9 +10,35 @@ import RoleRedirect from '@/components/RoleRedirect';
 import ThemeProvider from '@/components/ThemeProvider';
 import { pagesConfig } from './pages.config';
 
+const roleAccess = {
+  'Dashboard': ['admin', 'project_manager'],
+  'MyWork': ['employee', 'foreman', 'subcontractor', 'admin', 'project_manager', 'supervisor'],
+  'Projects': ['admin', 'project_manager', 'supervisor', 'foreman'],
+  'ProjectDetail': ['admin', 'project_manager', 'supervisor', 'foreman'],
+  'Tasks': ['admin', 'project_manager', 'supervisor', 'foreman', 'employee', 'subcontractor'],
+  'Employees': ['admin', 'project_manager'],
+  'EmployeeTracking': ['admin', 'project_manager', 'supervisor'],
+  'Schedule': ['admin', 'project_manager', 'supervisor', 'foreman', 'employee', 'subcontractor'],
+  'MapView': ['admin', 'project_manager'],
+  'TimeTracking': ['admin', 'project_manager', 'supervisor', 'foreman', 'employee', 'subcontractor'],
+  'Notifications': ['admin', 'project_manager', 'supervisor', 'foreman', 'employee', 'subcontractor'],
+  'GroupChat': ['admin', 'project_manager', 'supervisor', 'foreman', 'employee', 'subcontractor'],
+  'Equipment': ['admin', 'project_manager', 'supervisor', 'foreman'],
+  'Permissions': ['admin'],
+};
+
+const ProtectedRoute = ({ children, name, userRole }) => {
+  const allowedRoles = roleAccess[name] || [];
+  if (allowedRoles.length > 0 && !allowedRoles.includes(userRole)) {
+    return <Navigate to="/" replace />;
+  }
+  return children;
+};
+
 const AuthenticatedApp = () => {
-  const { isLoadingAuth, isLoadingPublicSettings, authError } = useAuth();
+  const { user, isLoadingAuth, isLoadingPublicSettings, authError } = useAuth();
   const isLoginPage = window.location.pathname === '/Login';
+  const userRole = user?.role || 'employee';
 
   // Show loading spinner while checking app public settings or auth
   if ((isLoadingPublicSettings || isLoadingAuth) && !isLoginPage) {
@@ -40,7 +66,17 @@ const AuthenticatedApp = () => {
         <Route path="/" element={<Navigate to={`/${pagesConfig.mainPage}`} replace />} />
         {Object.entries(pagesConfig.Pages).map(([name, Component]) => {
           if (name === 'Login') return null;
-          return <Route key={name} path={`/${name}`} element={<Component />} />;
+          return (
+            <Route 
+              key={name} 
+              path={`/${name}`} 
+              element={
+                <ProtectedRoute name={name} userRole={userRole}>
+                  <Component />
+                </ProtectedRoute>
+              } 
+            />
+          );
         })}
       </Route>
       <Route path="*" element={<PageNotFound />} />

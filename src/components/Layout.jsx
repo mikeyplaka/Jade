@@ -7,6 +7,7 @@ import {
   Map, Bell, Clock, Menu, LogOut, ChevronRight, HardHat, Trash2, Navigation, MessageSquare,
   Wrench, Shield
 } from 'lucide-react';
+import { useAuth } from '@/lib/AuthContext';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -19,18 +20,18 @@ import {
 import MobileTabBar from '@/components/MobileTabBar';
 
 const navItems = [
-  { path: '/Dashboard', label: 'Dashboard', icon: LayoutDashboard, roles: ['admin', 'project_manager', 'supervisor'] },
-  { path: '/MyWork', label: 'My Work', icon: HardHat, roles: ['employee', 'foreman', 'subcontractor'] },
+  { path: '/Dashboard', label: 'Dashboard', icon: LayoutDashboard, roles: ['admin', 'project_manager'] },
+  { path: '/MyWork', label: 'My Work', icon: HardHat, roles: ['employee', 'foreman', 'subcontractor', 'admin', 'project_manager', 'supervisor'] },
   { path: '/Projects', label: 'Projects', icon: FolderKanban, roles: ['admin', 'project_manager', 'supervisor', 'foreman'] },
   { path: '/Tasks', label: 'Tasks', icon: ListChecks, roles: ['admin', 'project_manager', 'supervisor', 'foreman', 'employee', 'subcontractor'] },
-  { path: '/Employees', label: 'Team', icon: Users, roles: ['admin', 'project_manager', 'supervisor'] },
+  { path: '/Employees', label: 'Team', icon: Users, roles: ['admin', 'project_manager'] },
   { path: '/EmployeeTracking', label: 'Field Tracking', icon: Navigation, roles: ['admin', 'project_manager', 'supervisor'] },
   { path: '/Schedule', label: 'Schedule', icon: Calendar, roles: ['admin', 'project_manager', 'supervisor', 'foreman', 'employee', 'subcontractor'] },
-  { path: '/MapView', label: 'Map', icon: Map, roles: ['admin', 'project_manager', 'supervisor'] },
+  { path: '/MapView', label: 'Map', icon: Map, roles: ['admin', 'project_manager'] },
   { path: '/TimeTracking', label: 'Time Clock', icon: Clock, roles: ['admin', 'project_manager', 'supervisor', 'foreman', 'employee', 'subcontractor'] },
   { path: '/Notifications', label: 'Notifications', icon: Bell, roles: ['admin', 'project_manager', 'supervisor', 'foreman', 'employee', 'subcontractor'] },
   { path: '/GroupChat', label: 'Group Chat', icon: MessageSquare, roles: ['admin', 'project_manager', 'supervisor', 'foreman', 'employee', 'subcontractor'] },
-  { path: '/Equipment', label: 'Equipment', icon: Wrench, roles: ['admin', 'project_manager', 'supervisor', 'foreman', 'employee'] },
+  { path: '/Equipment', label: 'Equipment', icon: Wrench, roles: ['admin', 'project_manager', 'supervisor', 'foreman'] },
   { path: '/Permissions', label: 'Permissions', icon: Shield, roles: ['admin'] },
 ];
 
