@@ -18,17 +18,17 @@ import {
 import MobileTabBar from '@/components/MobileTabBar';
 
 const navItems = [
-  { path: '/Dashboard', label: 'Dashboard', icon: LayoutDashboard, roles: ['admin', 'project_manager'] },
-  { path: '/MyWork', label: 'My Work', icon: HardHat, roles: ['employee'] },
-  { path: '/Projects', label: 'Projects', icon: FolderKanban, roles: ['admin', 'project_manager'] },
-  { path: '/Tasks', label: 'Tasks', icon: ListChecks, roles: ['admin', 'project_manager', 'employee'] },
-  { path: '/Employees', label: 'Team', icon: Users, roles: ['admin', 'project_manager'] },
-  { path: '/EmployeeTracking', label: 'Field Tracking', icon: Navigation, roles: ['admin', 'project_manager'] },
-  { path: '/Schedule', label: 'Schedule', icon: Calendar, roles: ['admin', 'project_manager', 'employee'] },
-  { path: '/MapView', label: 'Map', icon: Map, roles: ['admin', 'project_manager'] },
-  { path: '/TimeTracking', label: 'Time Clock', icon: Clock, roles: ['admin', 'project_manager', 'employee'] },
-  { path: '/Notifications', label: 'Notifications', icon: Bell, roles: ['admin', 'project_manager', 'employee'] },
-  { path: '/GroupChat', label: 'Group Chat', icon: MessageSquare, roles: ['admin', 'project_manager', 'employee'] },
+  { path: '/Dashboard', label: 'Dashboard', icon: LayoutDashboard, roles: ['admin', 'project_manager', 'supervisor'] },
+  { path: '/MyWork', label: 'My Work', icon: HardHat, roles: ['employee', 'foreman', 'subcontractor'] },
+  { path: '/Projects', label: 'Projects', icon: FolderKanban, roles: ['admin', 'project_manager', 'supervisor', 'foreman'] },
+  { path: '/Tasks', label: 'Tasks', icon: ListChecks, roles: ['admin', 'project_manager', 'supervisor', 'foreman', 'employee', 'subcontractor'] },
+  { path: '/Employees', label: 'Team', icon: Users, roles: ['admin', 'project_manager', 'supervisor'] },
+  { path: '/EmployeeTracking', label: 'Field Tracking', icon: Navigation, roles: ['admin', 'project_manager', 'supervisor'] },
+  { path: '/Schedule', label: 'Schedule', icon: Calendar, roles: ['admin', 'project_manager', 'supervisor', 'foreman', 'employee', 'subcontractor'] },
+  { path: '/MapView', label: 'Map', icon: Map, roles: ['admin', 'project_manager', 'supervisor'] },
+  { path: '/TimeTracking', label: 'Time Clock', icon: Clock, roles: ['admin', 'project_manager', 'supervisor', 'foreman', 'employee', 'subcontractor'] },
+  { path: '/Notifications', label: 'Notifications', icon: Bell, roles: ['admin', 'project_manager', 'supervisor', 'foreman', 'employee', 'subcontractor'] },
+  { path: '/GroupChat', label: 'Group Chat', icon: MessageSquare, roles: ['admin', 'project_manager', 'supervisor', 'foreman', 'employee', 'subcontractor'] },
 ];
 
 export default function Layout() {
