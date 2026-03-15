@@ -4,7 +4,8 @@ import { base44 } from '@/api/base44Client';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   LayoutDashboard, FolderKanban, ListChecks, Users, Calendar,
-  Map, Bell, Clock, Menu, LogOut, ChevronRight, HardHat, Trash2, Navigation, MessageSquare
+  Map, Bell, Clock, Menu, LogOut, ChevronRight, HardHat, Trash2, Navigation, MessageSquare,
+  Wrench, Shield
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -29,6 +30,8 @@ const navItems = [
   { path: '/TimeTracking', label: 'Time Clock', icon: Clock, roles: ['admin', 'project_manager', 'supervisor', 'foreman', 'employee', 'subcontractor'] },
   { path: '/Notifications', label: 'Notifications', icon: Bell, roles: ['admin', 'project_manager', 'supervisor', 'foreman', 'employee', 'subcontractor'] },
   { path: '/GroupChat', label: 'Group Chat', icon: MessageSquare, roles: ['admin', 'project_manager', 'supervisor', 'foreman', 'employee', 'subcontractor'] },
+  { path: '/Equipment', label: 'Equipment', icon: Wrench, roles: ['admin', 'project_manager', 'supervisor', 'foreman', 'employee'] },
+  { path: '/Permissions', label: 'Permissions', icon: Shield, roles: ['admin'] },
 ];
 
 export default function Layout() {
