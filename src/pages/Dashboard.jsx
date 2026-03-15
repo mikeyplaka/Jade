@@ -59,10 +59,10 @@ export default function Dashboard() {
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatsCard title="Active Projects" value={activeProjects.length} subtitle={`${projects.length} total`} icon={FolderKanban} color="bg-blue-100 text-blue-600" />
-        <StatsCard title="Completed" value={completedProjects.length} subtitle={`${completedTasks.length} tasks done`} icon={CheckCircle2} color="bg-emerald-100 text-emerald-600" />
-        <StatsCard title="Team Members" value={employees.length} subtitle={`${users.length} total users`} icon={Users} color="bg-violet-100 text-violet-600" />
-        <StatsCard title="Behind Schedule" value={behindSchedule.length} subtitle={`${pendingTasks.length} pending tasks`} icon={AlertTriangle} color="bg-red-100 text-red-600" />
+        <StatsCard title="Active Projects" value={activeProjects.length} subtitle={`${projects.length} total`} icon={FolderKanban} color="bg-blue-100 text-blue-600" to="/Projects" />
+        <StatsCard title="Completed" value={completedProjects.length} subtitle={`${completedTasks.length} tasks done`} icon={CheckCircle2} color="bg-emerald-100 text-emerald-600" to="/Tasks" />
+        <StatsCard title="Team Members" value={employees.length} subtitle={`${users.length} total users`} icon={Users} color="bg-violet-100 text-violet-600" to="/Employees" />
+        <StatsCard title="Behind Schedule" value={behindSchedule.length} subtitle={`${pendingTasks.length} pending tasks`} icon={AlertTriangle} color="bg-red-100 text-red-600" to="/Schedule" />
       </div>
 
       <div className="grid lg:grid-cols-2 gap-6">
