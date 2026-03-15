@@ -87,6 +87,26 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const login = async (email, password) => {
+    try {
+      setIsLoadingAuth(true);
+      setAuthError(null);
+      await base44.auth.login(email, password);
+      await checkUserAuth();
+      return { success: true };
+    } catch (error) {
+      console.error('Login failed:', error);
+      setIsAuthenticated(false);
+      setAuthError({
+        type: 'invalid_credentials',
+        message: error.message || 'Invalid email or password'
+      });
+      return { success: false, error: error.message };
+    } finally {
+      setIsLoadingAuth(false);
+    }
+  };
+
   const checkUserAuth = async () => {
     try {
       // Now check if the user is authenticated
@@ -124,8 +144,8 @@ export const AuthProvider = ({ children }) => {
   };
 
   const navigateToLogin = () => {
-    // Use the SDK's redirectToLogin method
-    base44.auth.redirectToLogin(window.location.href);
+    // Navigate to the internal /login route instead of platform redirect
+    window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname + window.location.search)}`;
   };
 
   return (
@@ -136,6 +156,7 @@ export const AuthProvider = ({ children }) => {
       isLoadingPublicSettings,
       authError,
       appPublicSettings,
+      login,
       logout,
       navigateToLogin,
       checkAppState

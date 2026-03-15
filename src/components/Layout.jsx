@@ -38,18 +38,20 @@ export default function Layout() {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const { data: user } = useQuery({
+  const { user, logout } = useAuth();
+  const { data: userData } = useQuery({
     queryKey: ['currentUser'],
     queryFn: () => base44.auth.me(),
+    initialData: user
   });
 
   const { data: unreadNotifs = [] } = useQuery({
-    queryKey: ['unreadNotifs', user?.email],
-    queryFn: () => base44.entities.Notification.filter({ recipient_email: user.email, is_read: false }),
-    enabled: !!user?.email,
+    queryKey: ['unreadNotifs', userData?.email],
+    queryFn: () => base44.entities.Notification.filter({ recipient_email: userData.email, is_read: false }),
+    enabled: !!userData?.email,
   });
 
-  const role = user?.role || 'employee';
+  const role = userData?.role || 'employee';
   const filteredNav = navItems.filter(item => item.roles.includes(role));
   const unreadCount = unreadNotifs.length;
 

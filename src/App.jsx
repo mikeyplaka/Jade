@@ -8,63 +8,40 @@ import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import Layout from '@/components/Layout';
 import RoleRedirect from '@/components/RoleRedirect';
 import ThemeProvider from '@/components/ThemeProvider';
-import Dashboard from '@/pages/Dashboard';
-import MyWork from '@/pages/MyWork';
-import Projects from '@/pages/Projects';
-import ProjectDetail from '@/pages/ProjectDetail';
-import Tasks from '@/pages/Tasks';
-import Employees from '@/pages/Employees';
-import Schedule from '@/pages/Schedule';
-import MapView from '@/pages/MapView';
-import TimeTracking from '@/pages/TimeTracking';
-import Notifications from '@/pages/Notifications';
-import EmployeeTracking from '@/pages/EmployeeTracking';
-import GroupChat from '@/pages/GroupChat';
-import Equipment from '@/pages/Equipment';
-import Permissions from '@/pages/Permissions';
+import { pagesConfig } from './pages.config';
 
 const AuthenticatedApp = () => {
-  const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
+  const { isLoadingAuth, isLoadingPublicSettings, authError } = useAuth();
+  const isLoginPage = window.location.pathname === '/Login';
 
   // Show loading spinner while checking app public settings or auth
-  if (isLoadingPublicSettings || isLoadingAuth) {
+  if ((isLoadingPublicSettings || isLoadingAuth) && !isLoginPage) {
     return (
-      <div className="fixed inset-0 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin"></div>
+      <div className="fixed inset-0 flex items-center justify-center bg-slate-950">
+        <div className="w-8 h-8 border-4 border-slate-800 border-t-primary rounded-full animate-spin"></div>
       </div>
     );
   }
 
-  // Handle authentication errors
-  if (authError) {
+  // Handle authentication errors (except on login page)
+  if (authError && !isLoginPage) {
     if (authError.type === 'user_not_registered') {
       return <UserNotRegisteredError />;
-    } else if (authError.type === 'auth_required') {
-      // Redirect to login automatically
-      navigateToLogin();
-      return null;
+    } else if (authError.type === 'auth_required' || authError.type === 'invalid_credentials') {
+      return <Navigate to="/Login" replace state={{ from: window.location.pathname }} />;
     }
   }
 
   // Render the main app
   return (
     <Routes>
+      <Route path="/Login" element={<pagesConfig.Pages.Login />} />
       <Route element={<Layout />}>
-        <Route path="/" element={<Navigate to="/Dashboard" replace />} />
-        <Route path="/Dashboard" element={<Dashboard />} />
-        <Route path="/MyWork" element={<MyWork />} />
-        <Route path="/Projects" element={<Projects />} />
-        <Route path="/ProjectDetail" element={<ProjectDetail />} />
-        <Route path="/Tasks" element={<Tasks />} />
-        <Route path="/Employees" element={<Employees />} />
-        <Route path="/Schedule" element={<Schedule />} />
-        <Route path="/MapView" element={<MapView />} />
-        <Route path="/TimeTracking" element={<TimeTracking />} />
-        <Route path="/Notifications" element={<Notifications />} />
-        <Route path="/EmployeeTracking" element={<EmployeeTracking />} />
-        <Route path="/GroupChat" element={<GroupChat />} />
-        <Route path="/Equipment" element={<Equipment />} />
-        <Route path="/Permissions" element={<Permissions />} />
+        <Route path="/" element={<Navigate to={`/${pagesConfig.mainPage}`} replace />} />
+        {Object.entries(pagesConfig.Pages).map(([name, Component]) => {
+          if (name === 'Login') return null;
+          return <Route key={name} path={`/${name}`} element={<Component />} />;
+        })}
       </Route>
       <Route path="*" element={<PageNotFound />} />
     </Routes>

@@ -48,7 +48,42 @@
  * The mainPage value must match a key in the PAGES object exactly.
  */
 
+import Dashboard from './pages/Dashboard';
+import MyWork from './pages/MyWork';
+import Projects from './pages/Projects';
+import ProjectDetail from './pages/ProjectDetail';
+import Tasks from './pages/Tasks';
+import Employees from './pages/Employees';
+import Schedule from './pages/Schedule';
+import MapView from './pages/MapView';
+import TimeTracking from './pages/TimeTracking';
+import Notifications from './pages/Notifications';
+import EmployeeTracking from './pages/EmployeeTracking';
+import GroupChat from './pages/GroupChat';
+import Equipment from './pages/Equipment';
+import Permissions from './pages/Permissions';
+import Login from './pages/Login';
+
+export const PAGES = {
+  "Dashboard": Dashboard,
+  "MyWork": MyWork,
+  "Projects": Projects,
+  "ProjectDetail": ProjectDetail,
+  "Tasks": Tasks,
+  "Employees": Employees,
+  "Schedule": Schedule,
+  "MapView": MapView,
+  "TimeTracking": TimeTracking,
+  "Notifications": Notifications,
+  "EmployeeTracking": EmployeeTracking,
+  "GroupChat": GroupChat,
+  "Equipment": Equipment,
+  "Permissions": Permissions,
+  "Login": Login,
+};
+
 export const pagesConfig = {
-	Pages: {}
-}
+  mainPage: "Dashboard",
+  Pages: PAGES,
+};
 
