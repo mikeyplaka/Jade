@@ -8,8 +8,10 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
-import { Search, Users, UserPlus, Mail, Phone, Wrench, Shield } from 'lucide-react';
+import { Search, Users, UserPlus, Mail, Phone, Wrench, Shield, FolderKanban, ChevronDown, ChevronUp } from 'lucide-react';
 import { toast } from 'sonner';
+import ProjectForm from '@/components/projects/ProjectForm';
+import { useMutation } from '@tanstack/react-query';
 
 const roleColors = {
   admin: 'bg-violet-100 text-violet-700',
@@ -309,4 +311,4 @@ export default function Employees() {
       </Dialog>
     </div>
   );
-}
+}
