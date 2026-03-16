@@ -130,7 +130,9 @@ export default function Tasks() {
                   <Link to={`/ProjectDetail?id=${task.project_id}`} className="text-xs text-primary hover:underline">
                     {getProjectName(task.project_id)}
                   </Link>
-                  <span className="text-xs text-muted-foreground">{getEmployeeName(task.assigned_to)}</span>
+                  {!isEmployee && (
+                    <span className="text-xs text-muted-foreground">{getEmployeeName(task.assigned_to)}</span>
+                  )}
                   {task.due_date && (
                     <span className="text-xs text-muted-foreground">{format(new Date(task.due_date), 'MMM d')}</span>
                   )}
