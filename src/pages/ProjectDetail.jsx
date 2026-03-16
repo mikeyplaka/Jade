@@ -18,6 +18,7 @@ import { format } from 'date-fns';
 import PhotoUploader from '@/components/projects/PhotoUploader';
 import ProjectForm from '@/components/projects/ProjectForm';
 import MaterialRequests from '@/components/projects/MaterialRequests';
+import MaterialTracker from '@/components/projects/MaterialTracker';
 
 const statusColors = {
   pending: 'bg-amber-100 text-amber-700',
