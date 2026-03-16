@@ -132,6 +132,7 @@ export default function MyWork() {
                   <p className="text-xs text-muted-foreground mt-2 bg-muted/50 p-2 rounded">{project.description}</p>
                 )}
               </Card>
+              </Link>
             ))}
           </div>
         )}
