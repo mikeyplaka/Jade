@@ -150,7 +150,7 @@ export default function MyWork() {
               return (
                 <div key={task.id} className="p-4">
                   <div className="flex items-start gap-3">
-                    <button onClick={() => updateTaskMutation.mutate({ id: task.id, data: { status: 'completed' } })} className="mt-0.5">
+                    <button onClick={() => handleUpdateTask(task.id, { status: 'completed' })} className="mt-0.5">
                       {task.status === 'in_progress' ? (
                         <Clock className="w-5 h-5 text-blue-500" />
                       ) : (
@@ -209,7 +209,7 @@ export default function MyWork() {
                       variant="ghost"
                       size="icon"
                       className="h-8 w-8 shrink-0"
-                      onClick={() => { setSelectedTask(task); setNoteText(task.notes || ''); }}
+                      onClick={() => { setSelectedTask(getTaskData(task)); setNoteText(task.notes || ''); }}
                     >
                       <Camera className="w-4 h-4 text-muted-foreground" />
                     </Button>
@@ -242,16 +242,12 @@ export default function MyWork() {
                 <PhotoUploader
                   label="Before Photos"
                   photos={selectedTask.photos_before || []}
-                  onPhotosChange={(photos) =>
-                    updateTaskMutation.mutate({ id: selectedTask.id, data: { photos_before: photos } })
-                  }
+                  onPhotosChange={(photos) => handleUpdateTask(selectedTask.id, { photos_before: photos })}
                 />
                 <PhotoUploader
                   label="After Photos (Completed Work)"
                   photos={selectedTask.photos_after || []}
-                  onPhotosChange={(photos) =>
-                    updateTaskMutation.mutate({ id: selectedTask.id, data: { photos_after: photos } })
-                  }
+                  onPhotosChange={(photos) => handleUpdateTask(selectedTask.id, { photos_after: photos })}
                 />
               </>
             )}
@@ -260,14 +256,14 @@ export default function MyWork() {
                 <Button
                   variant="outline"
                   className="border-emerald-500 text-emerald-600 hover:bg-emerald-50"
-                  onClick={() => updateTaskMutation.mutate({ id: selectedTask.id, data: { status: 'completed', notes: noteText } })}
+                  onClick={() => handleUpdateTask(selectedTask.id, { status: 'completed', notes: noteText })}
                 >
                   <CheckCircle2 className="w-4 h-4 mr-1.5" /> Mark Complete
                 </Button>
               )}
               <div className="flex gap-2 ml-auto">
                 <Button variant="outline" onClick={() => setSelectedTask(null)}>Cancel</Button>
-                <Button onClick={() => updateTaskMutation.mutate({ id: selectedTask.id, data: { notes: noteText } })}>
+                <Button onClick={() => handleUpdateTask(selectedTask.id, { notes: noteText })}>
                   Save Notes
                 </Button>
               </div>
