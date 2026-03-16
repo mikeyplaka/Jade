@@ -15,6 +15,15 @@ export default function TimeTracking() {
   const [selectedProject, setSelectedProject] = useState('');
   const [clockNotes, setClockNotes] = useState('');
   const queryClient = useQueryClient();
+  // Local state for offline active entry
+  const [localActiveEntry, setLocalActiveEntry] = useState(null);
+
+  const onSyncComplete = useCallback(() => {
+    queryClient.invalidateQueries({ queryKey: ['timeEntries'] });
+    setLocalActiveEntry(null);
+  }, [queryClient]);
+
+  const { isOnline, pendingCount, isSyncing, sync } = useOfflineSync(onSyncComplete);
 
   const { data: user } = useQuery({
     queryKey: ['currentUser'],
@@ -32,36 +41,40 @@ export default function TimeTracking() {
     enabled: !!user?.email,
   });
 
-  const createMutation = useMutation({
-    mutationFn: (data) => base44.entities.TimeEntry.create(data),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['timeEntries'] }),
-  });
-
-  const updateMutation = useMutation({
-    mutationFn: ({ id, data }) => base44.entities.TimeEntry.update(id, data),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ['timeEntries'] }),
-  });
-
-  const activeEntry = entries.find(e => !e.clock_out);
+  const activeEntry = entries.find(e => !e.clock_out) || localActiveEntry;
   const getProjectName = (id) => projects.find(p => p.id === id)?.name || 'Unknown';
 
-  const handleClockIn = () => {
+  const handleClockIn = async () => {
     if (!selectedProject) return;
-    createMutation.mutate({
+    const data = {
       employee_email: user.email,
       project_id: selectedProject,
       clock_in: new Date().toISOString(),
       notes: clockNotes,
-    });
+    };
+    const result = await createTimeEntryOffline(data, isOnline);
+    if (result.offline) {
+      setLocalActiveEntry({ ...data, id: result._tempId, _offline: true });
+    } else {
+      queryClient.invalidateQueries({ queryKey: ['timeEntries'] });
+    }
     setClockNotes('');
   };
 
-  const handleClockOut = () => {
+  const handleClockOut = async () => {
     if (!activeEntry) return;
-    updateMutation.mutate({
-      id: activeEntry.id,
-      data: { clock_out: new Date().toISOString() },
-    });
+    const clockOutData = { clock_out: new Date().toISOString() };
+    if (activeEntry._offline) {
+      // Update the queued op — just update local state, it'll sync when online
+      setLocalActiveEntry(prev => ({ ...prev, ...clockOutData }));
+      await updateTimeEntryOffline(activeEntry.id, clockOutData, false);
+    } else {
+      await updateTimeEntryOffline(activeEntry.id, clockOutData, isOnline);
+      if (isOnline) {
+        queryClient.invalidateQueries({ queryKey: ['timeEntries'] });
+      }
+      setLocalActiveEntry(null);
+    }
   };
 
   const formatDuration = (entry) => {
