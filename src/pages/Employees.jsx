@@ -36,6 +36,8 @@ export default function Employees() {
   const [showInvite, setShowInvite] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
+  const [expandedEmployee, setExpandedEmployee] = useState(null);
+  const [editingProject, setEditingProject] = useState(null);
   
   const [inviteEmail, setInviteEmail] = useState('');
   const [inviteRole, setInviteRole] = useState('employee');
