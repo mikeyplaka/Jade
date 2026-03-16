@@ -11,7 +11,6 @@ import { Label } from '@/components/ui/label';
 import { Search, Users, UserPlus, Mail, Phone, Wrench, Shield, FolderKanban, ChevronDown, ChevronUp } from 'lucide-react';
 import { toast } from 'sonner';
 import ProjectForm from '@/components/projects/ProjectForm';
-import { useMutation } from '@tanstack/react-query';
 
 const roleColors = {
   admin: 'bg-violet-100 text-violet-700',
