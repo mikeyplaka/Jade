@@ -10,6 +10,7 @@ import {
   MapPin, CalendarDays, Package, CheckCircle2, Circle, Clock,
   Camera, MessageSquare, HardHat
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import LocationCheckIn from '@/components/location/LocationCheckIn';
 import { format } from 'date-fns';
 import PhotoUploader from '@/components/projects/PhotoUploader';
