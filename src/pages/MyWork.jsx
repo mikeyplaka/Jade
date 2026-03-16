@@ -107,7 +107,7 @@ export default function MyWork() {
         ) : (
           <div className="space-y-3">
             {projects.map(project => (
-              <Link key={project.id} to={`/ProjectDetail?id=${project.id}`}>
+              <Link key={project.id} to={`/ProjectDetail?id=${project.id}`} className="block">
               <Card className="p-4 hover:border-primary/50 hover:shadow-md transition-all cursor-pointer">
                 <div className="flex items-start justify-between mb-2">
                   <h3 className="font-semibold text-sm">{project.name}</h3>
