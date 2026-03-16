@@ -307,6 +307,17 @@ export default function Employees() {
         </DialogContent>
       </Dialog>
 
+      {/* Edit Project Dialog */}
+      {editingProject && (
+        <ProjectForm
+          open={!!editingProject}
+          onClose={() => setEditingProject(null)}
+          onSubmit={handleUpdateProject}
+          initialData={editingProject}
+          employees={users}
+        />
+      )}
+
       {/* Edit Dialog */}
       <Dialog open={showEdit} onOpenChange={setShowEdit}>
         <DialogContent className="rounded-2xl border-none max-w-md">
