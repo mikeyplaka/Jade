@@ -45,8 +45,12 @@ export default function Tasks() {
   });
 
   const { data: projects = [] } = useQuery({
-    queryKey: ['projects'],
+    queryKey: ['projects', currentUser?.email],
     queryFn: () => base44.entities.Project.list('-created_date', 200),
+    enabled: !!currentUser,
+    select: (data) => isEmployee
+      ? data.filter(p => p.assigned_employees?.includes(currentUser.email))
+      : data,
   });
 
   const { data: users = [] } = useQuery({
