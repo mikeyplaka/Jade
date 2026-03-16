@@ -107,6 +107,18 @@ export default function Employees() {
   };
 
   const getProjectCount = (email) => projects.filter(p => p.assigned_employees?.includes(email)).length;
+  const getEmployeeProjects = (email) => projects.filter(p => p.assigned_employees?.includes(email));
+
+  const handleUpdateProject = async (formData) => {
+    try {
+      await base44.entities.Project.update(editingProject.id, formData);
+      toast.success('Project updated');
+      setEditingProject(null);
+      queryClient.invalidateQueries({ queryKey: ['projects'] });
+    } catch {
+      toast.error('Failed to update project');
+    }
+  };
 
   const filtered = users.filter(u =>
     u.full_name?.toLowerCase().includes(search.toLowerCase()) ||
