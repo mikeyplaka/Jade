@@ -27,9 +27,21 @@ export default function Tasks() {
   const [statusFilter, setStatusFilter] = useState('all');
   const queryClient = useQueryClient();
 
+  const { data: currentUser } = useQuery({
+    queryKey: ['currentUser'],
+    queryFn: () => base44.auth.me(),
+  });
+
+  const employeeRoles = ['employee', 'foreman', 'subcontractor'];
+  const isEmployee = employeeRoles.includes(currentUser?.role);
+
   const { data: tasks = [], isLoading } = useQuery({
-    queryKey: ['tasks'],
+    queryKey: ['tasks', currentUser?.email],
     queryFn: () => base44.entities.Task.list('-created_date', 500),
+    enabled: !!currentUser,
+    select: (data) => isEmployee
+      ? data.filter(t => t.assigned_to === currentUser.email)
+      : data,
   });
 
   const { data: projects = [] } = useQuery({
@@ -40,6 +52,7 @@ export default function Tasks() {
   const { data: users = [] } = useQuery({
     queryKey: ['users'],
     queryFn: () => base44.entities.User.list(),
+    enabled: !isEmployee,
   });
 
   const updateMutation = useMutation({

@@ -32,14 +32,27 @@ export default function Projects() {
   const [statusFilter, setStatusFilter] = useState('all');
   const queryClient = useQueryClient();
 
+  const { data: currentUser } = useQuery({
+    queryKey: ['currentUser'],
+    queryFn: () => base44.auth.me(),
+  });
+
+  const employeeRoles = ['employee', 'foreman', 'subcontractor'];
+  const isEmployee = employeeRoles.includes(currentUser?.role);
+
   const { data: projects = [], isLoading } = useQuery({
-    queryKey: ['projects'],
+    queryKey: ['projects', currentUser?.email],
     queryFn: () => base44.entities.Project.list('-created_date', 200),
+    enabled: !!currentUser,
+    select: (data) => isEmployee
+      ? data.filter(p => p.assigned_employees?.includes(currentUser.email))
+      : data,
   });
 
   const { data: users = [] } = useQuery({
     queryKey: ['users'],
     queryFn: () => base44.entities.User.list(),
+    enabled: !isEmployee,
   });
 
   const createMutation = useMutation({
@@ -81,10 +94,12 @@ export default function Projects() {
             Managing <span className="text-foreground font-semibold">{projects.length}</span> active site locations
           </p>
         </div>
-        <Button onClick={() => setShowForm(true)} className="gap-2 h-11 px-6 shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all active:scale-95 group">
-          <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform duration-300" />
-          New Project
-        </Button>
+        {!isEmployee && (
+          <Button onClick={() => setShowForm(true)} className="gap-2 h-11 px-6 shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-all active:scale-95 group">
+            <Plus className="w-4 h-4 group-hover:rotate-90 transition-transform duration-300" />
+            New Project
+          </Button>
+        )}
       </div>
 
       <div className="flex flex-col sm:flex-row items-center gap-4 bg-card/10 p-2 rounded-2xl">
@@ -198,13 +213,15 @@ export default function Projects() {
         </div>
       )}
 
-      <ProjectForm
-        open={showForm}
-        onClose={() => setShowForm(false)}
-        onSubmit={(data) => createMutation.mutate(data)}
-        initialData={null}
-        employees={users}
-      />
+      {!isEmployee && (
+        <ProjectForm
+          open={showForm}
+          onClose={() => setShowForm(false)}
+          onSubmit={(data) => createMutation.mutate(data)}
+          initialData={null}
+          employees={users}
+        />
+      )}
     </div>
   );
-}
+}
