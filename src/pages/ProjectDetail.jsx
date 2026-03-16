@@ -220,6 +220,14 @@ export default function ProjectDetail() {
         </div>
       </Card>
 
+      {/* Material Tracker */}
+      <Card className="p-5">
+        <MaterialTracker
+          projectId={projectId}
+          isAdmin={currentUser?.role === 'admin' || currentUser?.role === 'project_manager'}
+        />
+      </Card>
+
       {/* Material Requests */}
       <Card className="p-5">
         <MaterialRequests
