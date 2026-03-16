@@ -100,6 +100,8 @@ export default function TimeTracking() {
         <p className="text-sm text-muted-foreground">Track your work hours</p>
       </div>
 
+      <OfflineBanner isOnline={isOnline} pendingCount={pendingCount} isSyncing={isSyncing} onSync={sync} />
+
       {/* Clock In/Out Card */}
       <Card className="p-6">
         {activeEntry ? (
