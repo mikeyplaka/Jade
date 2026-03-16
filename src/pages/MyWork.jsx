@@ -26,6 +26,14 @@ export default function MyWork() {
   const queryClient = useQueryClient();
   const [selectedTask, setSelectedTask] = useState(null);
   const [noteText, setNoteText] = useState('');
+  // Optimistic local task state for offline edits
+  const [localTaskOverrides, setLocalTaskOverrides] = useState({});
+
+  const onSyncComplete = useCallback((count) => {
+    queryClient.invalidateQueries({ queryKey: ['myTasks'] });
+  }, [queryClient]);
+
+  const { isOnline, pendingCount, isSyncing, sync } = useOfflineSync(onSyncComplete);
 
   const { data: user } = useQuery({
     queryKey: ['currentUser'],
@@ -50,13 +58,18 @@ export default function MyWork() {
     queryFn: () => base44.entities.Project.list('-created_date', 200),
   });
 
-  const updateTaskMutation = useMutation({
-    mutationFn: ({ id, data }) => base44.entities.Task.update(id, data),
-    onSuccess: () => {
+  const handleUpdateTask = useCallback(async (id, data) => {
+    // Optimistic UI update
+    setLocalTaskOverrides(prev => ({ ...prev, [id]: { ...(prev[id] || {}), ...data } }));
+    await updateTaskOffline(id, data, isOnline);
+    if (isOnline) {
       queryClient.invalidateQueries({ queryKey: ['myTasks'] });
-      setSelectedTask(null);
-    },
-  });
+    }
+    setSelectedTask(null);
+  }, [isOnline, queryClient]);
+
+  // Merge server data with local optimistic overrides
+  const getTaskData = (task) => ({ ...task, ...(localTaskOverrides[task.id] || {}) });
 
   const getProject = (id) => allProjects.find(p => p.id === id);
   const pendingTasks = tasks.filter(t => t.status !== 'completed');
