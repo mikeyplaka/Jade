@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { base44 } from '@/api/base44Client';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -13,6 +13,8 @@ import {
 import LocationCheckIn from '@/components/location/LocationCheckIn';
 import { format } from 'date-fns';
 import PhotoUploader from '@/components/projects/PhotoUploader';
+import { useOfflineSync, updateTaskOffline } from '@/components/useOfflineSync';
+import OfflineBanner from '@/components/OfflineBanner';
 
 const statusColors = {
   pending: 'bg-amber-100 text-amber-700',
