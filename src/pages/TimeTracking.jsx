@@ -111,6 +111,9 @@ export default function TimeTracking() {
             </div>
             <div>
               <p className="text-sm font-medium text-emerald-600">Currently Clocked In</p>
+              {activeEntry._offline && (
+                <p className="text-xs text-amber-600 mt-1">⚠ Saved offline — will sync when connected</p>
+              )}
               <p className="text-2xl font-bold mt-1">{formatDuration(activeEntry)}</p>
               <p className="text-sm text-muted-foreground mt-1">{getProjectName(activeEntry.project_id)}</p>
               <p className="text-xs text-muted-foreground">Since {format(new Date(activeEntry.clock_in), 'h:mm a')}</p>
