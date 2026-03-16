@@ -72,8 +72,9 @@ export default function MyWork() {
   const getTaskData = (task) => ({ ...task, ...(localTaskOverrides[task.id] || {}) });
 
   const getProject = (id) => allProjects.find(p => p.id === id);
-  const pendingTasks = tasks.filter(t => t.status !== 'completed');
-  const completedTasks = tasks.filter(t => t.status === 'completed');
+  const mergedTasks = tasks.map(getTaskData);
+  const pendingTasks = mergedTasks.filter(t => t.status !== 'completed');
+  const completedTasks = mergedTasks.filter(t => t.status === 'completed');
 
   const handleRefresh = async () => {
     await Promise.all([
@@ -88,6 +89,8 @@ export default function MyWork() {
         <h1 className="text-2xl font-bold">My Work</h1>
         <p className="text-sm text-muted-foreground">{pendingTasks.length} active tasks, {projects.length} projects</p>
       </div>
+
+      <OfflineBanner isOnline={isOnline} pendingCount={pendingCount} isSyncing={isSyncing} onSync={sync} />
 
       {/* Location Check-In */}
       {user && <LocationCheckIn user={user} projects={projects} />}
