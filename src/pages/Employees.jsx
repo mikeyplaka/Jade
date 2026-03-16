@@ -226,11 +226,47 @@ export default function Employees() {
                 )}
               </div>
 
-              <div className="mt-6 pt-4 border-t border-muted/50 flex items-center justify-between">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60">Assignments</span>
-                <Badge variant="outline" className="text-[10px] font-bold border-none bg-primary/5 text-primary">
-                  {getProjectCount(user.email)} Projects
-                </Badge>
+              <div className="mt-6 pt-4 border-t border-muted/50">
+                <button
+                  className="w-full flex items-center justify-between text-[10px] font-bold uppercase tracking-widest text-muted-foreground/60 hover:text-primary transition-colors"
+                  onClick={() => setExpandedEmployee(expandedEmployee === user.id ? null : user.id)}
+                >
+                  <span>Assignments</span>
+                  <div className="flex items-center gap-1">
+                    <Badge variant="outline" className="text-[10px] font-bold border-none bg-primary/5 text-primary">
+                      {getProjectCount(user.email)} Projects
+                    </Badge>
+                    {expandedEmployee === user.id ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+                  </div>
+                </button>
+
+                {expandedEmployee === user.id && (
+                  <div className="mt-3 space-y-2">
+                    {getEmployeeProjects(user.email).length === 0 ? (
+                      <p className="text-xs text-muted-foreground text-center py-2">No projects assigned</p>
+                    ) : (
+                      getEmployeeProjects(user.email).map(project => (
+                        <div key={project.id} className="flex items-center justify-between p-2.5 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors">
+                          <div className="flex items-center gap-2 min-w-0">
+                            <FolderKanban className="w-3.5 h-3.5 text-primary/60 flex-shrink-0" />
+                            <div className="min-w-0">
+                              <p className="text-xs font-medium truncate">{project.name}</p>
+                              <p className="text-[10px] text-muted-foreground truncate">{project.address}</p>
+                            </div>
+                          </div>
+                          <Button
+                            size="sm"
+                            variant="ghost"
+                            className="h-7 px-2 text-xs flex-shrink-0 ml-2"
+                            onClick={() => setEditingProject(project)}
+                          >
+                            <Wrench className="w-3 h-3 mr-1" /> Edit
+                          </Button>
+                        </div>
+                      ))
+                    )}
+                  </div>
+                )}
               </div>
             </Card>
           ))}
