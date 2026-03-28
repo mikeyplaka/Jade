@@ -1,0 +1,123 @@
+{
+  "name": "Project",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Project name"
+    },
+    "address": {
+      "type": "string",
+      "description": "Job site address"
+    },
+    "apartment_number": {
+      "type": "string",
+      "description": "Apartment or unit number"
+    },
+    "description": {
+      "type": "string",
+      "description": "Job description"
+    },
+    "scope_of_work": {
+      "type": "string",
+      "description": "Detailed scope of work"
+    },
+    "materials_needed": {
+      "type": "string",
+      "description": "Required materials"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Project start date"
+    },
+    "deadline": {
+      "type": "string",
+      "format": "date",
+      "description": "Project deadline"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "in_progress",
+        "completed",
+        "on_hold"
+      ],
+      "default": "pending"
+    },
+    "assigned_employees": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of assigned employee emails"
+    },
+    "project_manager": {
+      "type": "string",
+      "description": "Email of assigned project manager"
+    },
+    "photos": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Photo URLs"
+    },
+    "documents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Document URLs"
+    },
+    "notes": {
+      "type": "string",
+      "description": "General project notes"
+    },
+    "progress_percent": {
+      "type": "number",
+      "default": 0,
+      "description": "Overall progress percentage"
+    },
+    "latitude": {
+      "type": "number",
+      "description": "Job site latitude"
+    },
+    "longitude": {
+      "type": "number",
+      "description": "Job site longitude"
+    },
+    "tenant_signature": {
+      "type": "object",
+      "description": "Tenant sign-off on completed work",
+      "properties": {
+        "signature_image": {
+          "type": "string",
+          "description": "Base64 PNG of signature"
+        },
+        "tenant_name": {
+          "type": "string"
+        },
+        "signed_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  },
+  "required": [
+    "name",
+    "address"
+  ]
+}

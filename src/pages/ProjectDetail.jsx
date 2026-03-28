@@ -12,8 +12,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Label } from '@/components/ui/label';
 import {
   ArrowLeft, MapPin, CalendarDays, Users, FileText, Package,
-  Plus, CheckCircle2, Circle, Clock, Edit, Trash2
+  Plus, CheckCircle2, Circle, Clock, Edit, Trash2, PenLine
 } from 'lucide-react';
+import TenantSignature from '@/components/projects/TenantSignature';
 import { format } from 'date-fns';
 import PhotoUploader from '@/components/projects/PhotoUploader';
 import ProjectForm from '@/components/projects/ProjectForm';
@@ -243,6 +244,19 @@ export default function ProjectDetail() {
           label="Project Photos"
           photos={project.photos || []}
           onPhotosChange={(photos) => updateProjectMutation.mutate({ photos })}
+        />
+      </Card>
+
+      {/* Tenant Signature */}
+      <Card className="p-5">
+        <div className="flex items-center gap-2 mb-4">
+          <PenLine className="w-4 h-4 text-primary" />
+          <h2 className="font-semibold">Tenant Sign-Off</h2>
+        </div>
+        <TenantSignature
+          existingSignature={project.tenant_signature}
+          isAdmin={currentUser?.role === 'admin' || currentUser?.role === 'project_manager'}
+          onSave={(sig) => updateProjectMutation.mutate({ tenant_signature: sig })}
         />
       </Card>
 
