@@ -1,0 +1,33 @@
+{
+  "name": "TimeEntry",
+  "type": "object",
+  "properties": {
+    "employee_email": {
+      "type": "string",
+      "description": "Employee email"
+    },
+    "project_id": {
+      "type": "string",
+      "description": "Associated project ID"
+    },
+    "clock_in": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Clock in time"
+    },
+    "clock_out": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Clock out time"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Work notes"
+    }
+  },
+  "required": [
+    "employee_email",
+    "project_id",
+    "clock_in"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "name": "User",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "project_manager",
+        "supervisor",
+        "foreman",
+        "employee",
+        "subcontractor"
+      ],
+      "default": "employee"
+    },
+    "phone": {
+      "type": "string",
+      "description": "Phone number"
+    },
+    "specialty": {
+      "type": "string",
+      "description": "Worker specialty (e.g. electrician, plumber)"
+    },
+    "avatar_url": {
+      "type": "string",
+      "description": "Profile photo URL"
+    }
+  },
+  "required": [
+    "phone",
+    "specialty",
+    "avatar_url"
+  ]
+}

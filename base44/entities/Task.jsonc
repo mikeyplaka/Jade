@@ -1,0 +1,67 @@
+{
+  "name": "Task",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Task title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Task details"
+    },
+    "project_id": {
+      "type": "string",
+      "description": "Associated project ID"
+    },
+    "assigned_to": {
+      "type": "string",
+      "description": "Email of assigned employee"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "in_progress",
+        "completed"
+      ],
+      "default": "pending"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high",
+        "urgent"
+      ],
+      "default": "medium"
+    },
+    "due_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Notes from employee"
+    },
+    "photos_before": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Before photos"
+    },
+    "photos_after": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "After photos"
+    }
+  },
+  "required": [
+    "title",
+    "project_id"
+  ]
+}

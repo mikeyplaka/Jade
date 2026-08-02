@@ -1,0 +1,101 @@
+{
+  "name": "RolePermission",
+  "type": "object",
+  "properties": {
+    "role": {
+      "type": "string",
+      "enum": [
+        "admin",
+        "project_manager",
+        "supervisor",
+        "foreman",
+        "employee",
+        "subcontractor"
+      ],
+      "description": "The role this permission set applies to"
+    },
+    "can_view_dashboard": {
+      "type": "boolean",
+      "default": false
+    },
+    "can_view_projects": {
+      "type": "boolean",
+      "default": false
+    },
+    "can_edit_projects": {
+      "type": "boolean",
+      "default": false
+    },
+    "can_create_projects": {
+      "type": "boolean",
+      "default": false
+    },
+    "can_delete_projects": {
+      "type": "boolean",
+      "default": false
+    },
+    "can_view_tasks": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_edit_tasks": {
+      "type": "boolean",
+      "default": false
+    },
+    "can_create_tasks": {
+      "type": "boolean",
+      "default": false
+    },
+    "can_view_team": {
+      "type": "boolean",
+      "default": false
+    },
+    "can_invite_members": {
+      "type": "boolean",
+      "default": false
+    },
+    "can_change_roles": {
+      "type": "boolean",
+      "default": false
+    },
+    "can_view_equipment": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_edit_equipment": {
+      "type": "boolean",
+      "default": false
+    },
+    "can_view_time_tracking": {
+      "type": "boolean",
+      "default": true
+    },
+    "can_approve_time": {
+      "type": "boolean",
+      "default": false
+    },
+    "can_view_map": {
+      "type": "boolean",
+      "default": false
+    },
+    "can_view_field_tracking": {
+      "type": "boolean",
+      "default": false
+    },
+    "can_send_notifications": {
+      "type": "boolean",
+      "default": false
+    },
+    "can_view_reports": {
+      "type": "boolean",
+      "default": false
+    },
+    "can_manage_permissions": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "role"
+  ]
+}

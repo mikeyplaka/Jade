@@ -1,0 +1,59 @@
+{
+  "name": "ProjectMaterial",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "description": "Associated project ID"
+    },
+    "name": {
+      "type": "string",
+      "description": "Material name"
+    },
+    "unit": {
+      "type": "string",
+      "description": "Unit of measurement (e.g. pcs, lbs, ft, bags)",
+      "default": "pcs"
+    },
+    "quantity_total": {
+      "type": "number",
+      "description": "Total quantity delivered to site",
+      "default": 0
+    },
+    "quantity_installed": {
+      "type": "number",
+      "description": "Quantity already installed",
+      "default": 0
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "concrete",
+        "lumber",
+        "steel",
+        "electrical",
+        "plumbing",
+        "insulation",
+        "drywall",
+        "flooring",
+        "roofing",
+        "hardware",
+        "other"
+      ],
+      "default": "other"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes"
+    },
+    "added_by": {
+      "type": "string",
+      "description": "Email of user who added this entry"
+    }
+  },
+  "required": [
+    "project_id",
+    "name",
+    "quantity_total"
+  ]
+}

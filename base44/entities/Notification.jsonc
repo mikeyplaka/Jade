@@ -1,0 +1,41 @@
+{
+  "name": "Notification",
+  "type": "object",
+  "properties": {
+    "recipient_email": {
+      "type": "string",
+      "description": "Recipient email"
+    },
+    "title": {
+      "type": "string",
+      "description": "Notification title"
+    },
+    "message": {
+      "type": "string",
+      "description": "Notification message"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "assignment",
+        "update",
+        "reminder",
+        "general"
+      ],
+      "default": "general"
+    },
+    "is_read": {
+      "type": "boolean",
+      "default": false
+    },
+    "project_id": {
+      "type": "string",
+      "description": "Related project ID"
+    }
+  },
+  "required": [
+    "recipient_email",
+    "title",
+    "message"
+  ]
+}

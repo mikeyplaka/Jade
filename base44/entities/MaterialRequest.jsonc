@@ -1,0 +1,55 @@
+{
+  "name": "MaterialRequest",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "description": "Associated project ID"
+    },
+    "requested_by": {
+      "type": "string",
+      "description": "Email of the employee who requested"
+    },
+    "requested_by_name": {
+      "type": "string",
+      "description": "Name of the employee"
+    },
+    "material": {
+      "type": "string",
+      "description": "Material name or description"
+    },
+    "quantity": {
+      "type": "string",
+      "description": "Amount/quantity needed"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Additional notes or urgency"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "approved",
+        "ordered",
+        "delivered",
+        "rejected"
+      ],
+      "default": "pending"
+    },
+    "priority": {
+      "type": "string",
+      "enum": [
+        "low",
+        "normal",
+        "urgent"
+      ],
+      "default": "normal"
+    }
+  },
+  "required": [
+    "project_id",
+    "requested_by",
+    "material"
+  ]
+}

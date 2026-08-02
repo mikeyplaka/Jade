@@ -1,0 +1,53 @@
+{
+  "name": "LocationLog",
+  "type": "object",
+  "properties": {
+    "employee_email": {
+      "type": "string",
+      "description": "Employee email"
+    },
+    "employee_name": {
+      "type": "string",
+      "description": "Employee full name"
+    },
+    "latitude": {
+      "type": "number",
+      "description": "GPS latitude"
+    },
+    "longitude": {
+      "type": "number",
+      "description": "GPS longitude"
+    },
+    "accuracy": {
+      "type": "number",
+      "description": "GPS accuracy in meters"
+    },
+    "address": {
+      "type": "string",
+      "description": "Resolved address or description"
+    },
+    "project_id": {
+      "type": "string",
+      "description": "Associated project ID if on site"
+    },
+    "activity": {
+      "type": "string",
+      "enum": [
+        "check_in",
+        "check_out",
+        "on_site",
+        "traveling"
+      ],
+      "default": "check_in"
+    },
+    "notes": {
+      "type": "string",
+      "description": "Optional notes"
+    }
+  },
+  "required": [
+    "employee_email",
+    "latitude",
+    "longitude"
+  ]
+}
